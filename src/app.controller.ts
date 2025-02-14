@@ -11,6 +11,6 @@ export class AppController {
 
   @Get()
   getHello(): string {
-    return 'xxx';
+    return this.configService.get<string>('ENV');
   }
 }

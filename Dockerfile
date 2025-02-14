@@ -18,7 +18,6 @@ COPY --from=build-stage /app/dist /app/dist
 COPY --from=build-stage /app/package.json /app/package.json
 COPY --from=build-stage /app/tsconfig.json /app/tsconfig.json
 COPY --from=build-stage /app/.env.production /app/.env.production
-COPY --from=build-stage /app/.env /app/.env
 COPY --from=build-stage /app/.env.development /app/.env.development
 
 WORKDIR /app

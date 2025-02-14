@@ -9,7 +9,7 @@ import * as dotenv from 'dotenv';
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV}`,
-      load: [() => dotenv.config({ path: '.env' })],
+      // load: [() => dotenv.config({ path: '.env' })],
     }),
   ],
   controllers: [AppController],

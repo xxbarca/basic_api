@@ -26,6 +26,7 @@ ENV NODE_ENV production
 RUN npm config set registry https://registry.npmmirror.com && \
     npm install -g pnpm
 RUN pnpm i
+RUN pnpm setup
 RUN pnpm add pm2 -g
 RUN pnpm build
 

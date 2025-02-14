@@ -26,6 +26,7 @@ ENV NODE_ENV production
 RUN npm config set registry https://registry.npmmirror.com && \
     npm install -g pnpm && \
     pnpm i && \
+    pnpm i pm2 -g && \
     pnpm build
 
 EXPOSE 3000

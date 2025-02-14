@@ -4,13 +4,12 @@ WORKDIR /app
 
 COPY package.json .
 
-RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
-
-RUN pnpm install
-
 COPY . .
 
-RUN pnpm run build
+RUN npm config set registry https://registry.npmmirror.com && \
+    npm install -g pnpm && \
+    pnpm i && \
+    pnpm build
 
 # production stage
 FROM node:18-alpine3.20 as production-stage
@@ -23,11 +22,10 @@ WORKDIR /app
 # 环境变量
 ENV NODE_ENV production
 
-RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
-
-RUN pnpm install
-
-RUN pnpm run build
+RUN npm config set registry https://registry.npmmirror.com && \
+    npm install -g pnpm && \
+    pnpm i && \
+    pnpm build
 
 EXPOSE 3000
 

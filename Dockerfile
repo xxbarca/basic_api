@@ -20,8 +20,6 @@ COPY --from=build-stage /app/tsconfig.json /app/tsconfig.json
 
 WORKDIR /app
 
-# 环境变量
-ENV NODE_ENV production
 
 RUN npm config set registry https://registry.npmmirror.com && \
     npm install -g pnpm && \

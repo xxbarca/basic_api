@@ -31,4 +31,4 @@ RUN npm config set registry https://registry.npmmirror.com && \
 
 EXPOSE 3000
 
-CMD ["pnpm", "run","prod"]
+CMD ["pnpm", "run","start:prod"]

@@ -24,8 +24,9 @@ WORKDIR /app
 ENV NODE_ENV production
 
 RUN npm config set registry https://registry.npmmirror.com && \
-    npm install -g pnpm && \
-    pnpm i && \
+    npm install -g pnpm
+RUN pnpm i && \
+    pnpm add pm2 -g && \
     pnpm build
 
 EXPOSE 3000

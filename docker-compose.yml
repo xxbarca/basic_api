@@ -1,12 +1,34 @@
 version: '1.0'
 services:
-  basic-api:
+  api-container:
     container_name: basic-api
     build:
       context: ./
       dockerfile: ./Dockerfile
     ports:
       - 3000:3000
+    networks:
+      - common-network
+    depends_on:
+      - mysql-container
+
+
+  mysql-container:
+    restart: always
+    image: mysql:8.0.3
+    container_name: basic-mysql
+    ports:
+      - 3306:3306
+    privileged: true
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+      MYSQL_PASSWORD: admin123
+      MYSQL_USER: root
+      TZ: Asia/Shanghai
+    volumes:
+      - /root/docker/mysql_home/data:/var/lib/mysql
+      - /root/docker/mysql_home/init:/docker-entrypoint-initdb.d
+      - /root/docker/mysql_home/conf:/etc/mysql/conf.d
     networks:
       - common-network
 

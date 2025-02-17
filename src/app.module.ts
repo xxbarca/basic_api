@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from '@/modules/Auth/auth.module';
 import { DatabaseModule } from '@/modules/Database/database.module';
+import { AccessModule } from '@/modules/Access/access.module';
 import { APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import {
   ResponseInterceptor,
@@ -20,6 +21,7 @@ import { JwtAuthGuard } from '@/modules/Auth/guards';
     }),
     DatabaseModule,
     AuthModule,
+    AccessModule,
   ],
   controllers: [AppController],
   providers: [

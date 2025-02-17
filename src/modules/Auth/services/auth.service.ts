@@ -3,6 +3,7 @@ import {
   forwardRef,
   Inject,
   Injectable,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { UserService } from '@/modules/Auth/services';
 import { UserEntity } from '@/modules/Auth/entities';
@@ -62,5 +63,17 @@ export class AuthService {
       id: user.id,
       username: user.username,
     };
+  }
+
+  async verifyToken(token: string) {
+    try {
+      return await this.jwtService.verifyAsync(
+        token,
+        this.configService.get(ENV_JWT.JWT_SECRET),
+      );
+    } catch (e) {
+      console.error(e);
+      throw new UnauthorizedException('token已过期, 请重新登录');
+    }
   }
 }

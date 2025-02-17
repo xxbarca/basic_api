@@ -4,12 +4,13 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from '@/modules/Auth/auth.module';
 import { DatabaseModule } from '@/modules/Database/database.module';
-import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import {
   ResponseInterceptor,
   SerializeInterceptor,
 } from '@/common/Interceptors';
 import { AppPipe } from '@/common/providers';
+import { JwtAuthGuard } from '@/modules/Auth/guards';
 
 @Module({
   imports: [
@@ -23,6 +24,10 @@ import { AppPipe } from '@/common/providers';
   controllers: [AppController],
   providers: [
     AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
     {
       provide: APP_INTERCEPTOR,
       useClass: ResponseInterceptor,

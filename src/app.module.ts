@@ -4,11 +4,12 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from '@/modules/Auth/auth.module';
 import { DatabaseModule } from '@/modules/Database/database.module';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import {
   ResponseInterceptor,
   SerializeInterceptor,
 } from '@/common/Interceptors';
+import { AppPipe } from '@/common/providers';
 
 @Module({
   imports: [
@@ -29,6 +30,25 @@ import {
     {
       provide: APP_INTERCEPTOR,
       useClass: SerializeInterceptor,
+    },
+    {
+      provide: APP_PIPE,
+      useValue: new AppPipe({
+        transform: true,
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        forbidUnknownValues: true,
+        validationError: { target: false },
+      }),
+      // useValue: new ValidationPipe({
+      //   transform: true,
+      //   whitelist: true,
+      //   forbidNonWhitelisted: true,
+      //   forbidUnknownValues: true,
+      //   validationError: {
+      //     target: false,
+      //   },
+      // }),
     },
   ],
 })

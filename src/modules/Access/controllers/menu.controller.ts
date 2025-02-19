@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
 import { MenuService } from '@/modules/Access/services';
 import { CreateMenuDto } from '@/modules/Access/dtos';
 
@@ -9,5 +9,10 @@ export class MenuController {
   @Post()
   async create(@Body() data: CreateMenuDto) {
     return await this.menuService.create(data);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    return await this.menuService.delete(id);
   }
 }

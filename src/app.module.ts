@@ -12,6 +12,7 @@ import {
 } from '@/common/Interceptors';
 import { AppPipe } from '@/common/providers';
 import { JwtAuthGuard } from '@/modules/Auth/guards';
+import { MallModule } from '@/modules/Mall/mall.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { JwtAuthGuard } from '@/modules/Auth/guards';
     DatabaseModule,
     AuthModule,
     AccessModule,
+    MallModule,
   ],
   controllers: [AppController],
   providers: [

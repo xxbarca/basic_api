@@ -58,7 +58,7 @@ export class AppController {
     }),
   )
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
-    const filename = `${path.basename(file.filename, path.extname(file.filename))}.min.png`;
+    const filename = `${path.basename(file.filename, path.extname(file.filename))}.png`;
     const outputFilePath = `./uploads/${filename}`;
     await sharp(file.path)
       .resize(800, 600, {

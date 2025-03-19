@@ -6,6 +6,8 @@ import { AuthModule } from '@/modules/Auth/auth.module';
 import { DatabaseModule } from '@/modules/Database/database.module';
 import { AccessModule } from '@/modules/Access/access.module';
 import { APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+import * as dotenv from 'dotenv';
+
 import {
   ResponseInterceptor,
   SerializeInterceptor,
@@ -20,6 +22,7 @@ import { join } from 'path';
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV}`,
+      load: [() => dotenv.config({ path: '.env' })],
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'),

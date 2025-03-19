@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Query,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -32,6 +33,13 @@ export class AppController {
 
   @IsPublic()
   @Post('upload')
+  @UseInterceptors(FileInterceptor('file'))
+  async upload(@UploadedFile() file: Express.Multer.File) {
+    return this.appService.upload(file);
+  }
+
+  @IsPublic()
+  // @Post('upload')
   @UseInterceptors(
     FileInterceptor('upload', {
       storage: diskStorage({
@@ -57,6 +65,7 @@ export class AppController {
       },
     }),
   )
+  @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
     const filename = `${path.basename(file.filename, path.extname(file.filename))}.png`;
     const outputFilePath = `./uploads/${filename}`;
@@ -72,5 +81,10 @@ export class AppController {
     return {
       url: `/uploads/${filename}`,
     };
+  }
+  @IsPublic()
+  @Get('cos-signature')
+  async getCosSignature(@Query('key') key: string) {
+    return await this.appService.getAuth(key);
   }
 }

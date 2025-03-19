@@ -13,12 +13,17 @@ import {
 import { AppPipe } from '@/common/providers';
 import { JwtAuthGuard } from '@/modules/Auth/guards';
 import { MallModule } from '@/modules/Mall/mall.module';
-
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV}`,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'),
+      serveRoot: '/uploads',
     }),
     DatabaseModule,
     AuthModule,

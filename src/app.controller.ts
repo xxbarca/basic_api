@@ -13,6 +13,8 @@ import { diskStorage } from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 import e from 'express';
 import * as path from 'node:path';
+import * as sharp from 'sharp';
+import * as fs from 'fs';
 
 @Controller()
 export class AppController {
@@ -56,8 +58,19 @@ export class AppController {
     }),
   )
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
+    const filename = `${path.basename(file.filename, path.extname(file.filename))}.min.png`;
+    const outputFilePath = `./uploads/${filename}`;
+    await sharp(file.path)
+      .resize(800, 600, {
+        fit: sharp.fit.inside,
+        withoutEnlargement: true,
+      })
+      .toFormat('png')
+      .png({ quality: 80 })
+      .toFile(outputFilePath);
+    fs.unlinkSync(outputFilePath);
     return {
-      url: `/uploads/${file.filename}`,
+      url: `/uploads/${filename}`,
     };
   }
 }

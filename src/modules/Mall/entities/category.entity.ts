@@ -22,7 +22,7 @@ export class CategoryEntity {
     comment: '是否上线',
     type: 'enum',
     enum: CategoryStatus,
-    default: 0,
+    default: CategoryStatus.ONLINE,
   })
   online: CategoryStatus;
 

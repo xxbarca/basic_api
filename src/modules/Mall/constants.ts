@@ -1,4 +1,4 @@
 export enum CategoryStatus {
-  ONLINE,
   OFFLINE,
+  ONLINE,
 }

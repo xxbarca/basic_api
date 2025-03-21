@@ -1,5 +1,6 @@
-import { PickType } from '@nestjs/swagger';
+import { PartialType, PickType } from '@nestjs/swagger';
 import {
+  IsEnum,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -11,6 +12,7 @@ import { IsDataExist, IsUnique } from '@/modules/Database/constraints';
 import { CategoryEntity } from '@/modules/Mall/entities';
 import { Transform } from 'class-transformer';
 import { DtoValidation } from '@/common/decorators';
+import { CategoryStatus } from '@/modules/Mall/constants';
 
 class CommonCategoryDto {
   @IsUnique(CategoryEntity, {
@@ -23,7 +25,7 @@ class CommonCategoryDto {
   name: string;
 
   @IsString()
-  @IsOptional()
+  @IsOptional({ always: true })
   description: string;
 
   @IsDataExist(CategoryEntity, { always: true, message: '父分类不存在' })
@@ -39,8 +41,14 @@ class CommonCategoryDto {
 
   @IsNumber()
   @Transform(({ value }) => (value == 'null' ? null : Number(value)))
-  @IsOptional()
+  @IsOptional({ always: true })
   index: number;
+
+  @IsEnum(CategoryStatus, {
+    message: `是否在线的取值范围是 [${CategoryStatus.ONLINE}, ${CategoryStatus.OFFLINE}]`,
+  })
+  @IsOptional({ always: true })
+  online: CategoryStatus;
 }
 
 @DtoValidation({ groups: ['create'] })
@@ -51,3 +59,11 @@ export class CreateCategoryDto extends PickType(CommonCategoryDto, [
   'img',
   'index',
 ]) {}
+
+@DtoValidation({ groups: ['update'] })
+export class UpdateCategoryDto extends PartialType(CommonCategoryDto) {
+  @IsDataExist(CategoryEntity, { always: true, message: '分类不存在' })
+  @IsUUID()
+  @IsNotEmpty({ message: 'id不能为空' })
+  id: string;
+}

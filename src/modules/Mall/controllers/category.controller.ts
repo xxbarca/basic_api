@@ -1,5 +1,9 @@
 import { Body, Controller, Patch, Post } from '@nestjs/common';
-import { CreateCategoryDto, UpdateCategoryDto } from '@/modules/Mall/dtos';
+import {
+  CreateCategoryDto,
+  UpdateCategoryDto,
+  PaginateCategoryDto,
+} from '@/modules/Mall/dtos';
 import { CategoryService } from '@/modules/Mall/services';
 import { omit } from 'lodash';
 
@@ -14,5 +18,10 @@ export class CategoryController {
   @Patch()
   async update(@Body() data: UpdateCategoryDto) {
     return await this.service.update(data.id, omit(data, ['id']));
+  }
+
+  @Post('paginate')
+  async paginate(@Body() data: PaginateCategoryDto) {
+    return await this.service.page(data);
   }
 }

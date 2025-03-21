@@ -6,6 +6,7 @@ import {
   IsOptional,
   IsString,
   IsUUID,
+  Min,
   ValidateIf,
 } from 'class-validator';
 import { IsDataExist, IsUnique } from '@/modules/Database/constraints';
@@ -13,6 +14,8 @@ import { CategoryEntity } from '@/modules/Mall/entities';
 import { Transform } from 'class-transformer';
 import { DtoValidation } from '@/common/decorators';
 import { CategoryStatus } from '@/modules/Mall/constants';
+import { PaginateOptions } from '@/modules/Database/types';
+import { toNumber } from 'lodash';
 
 class CommonCategoryDto {
   @IsUnique(CategoryEntity, {
@@ -66,4 +69,19 @@ export class UpdateCategoryDto extends PartialType(CommonCategoryDto) {
   @IsUUID()
   @IsNotEmpty({ message: 'id不能为空' })
   id: string;
+}
+
+export class PaginateCategoryDto
+  extends PartialType(CommonCategoryDto)
+  implements PaginateOptions
+{
+  @Transform(({ value }) => toNumber(value))
+  @Min(1, { message: '当前页必须大于1' })
+  @IsNumber()
+  page?: number = 1;
+
+  @Transform(({ value }) => toNumber(value))
+  @Min(1, { message: '每页显示数据必须大于10' })
+  @IsNumber()
+  limit?: number = 10;
 }

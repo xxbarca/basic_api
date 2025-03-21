@@ -1,4 +1,13 @@
-import { Body, Controller, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Param,
+  ParseUUIDPipe,
+  Patch,
+  Post,
+  Get,
+  Delete,
+} from '@nestjs/common';
 import {
   CreateCategoryDto,
   UpdateCategoryDto,
@@ -23,5 +32,15 @@ export class CategoryController {
   @Post('paginate')
   async paginate(@Body() data: PaginateCategoryDto) {
     return await this.service.page(data);
+  }
+
+  @Get(':id')
+  async detail(@Param('id', ParseUUIDPipe) id: string) {
+    return await this.service.detail(id);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id', ParseUUIDPipe) id: string) {
+    return await this.service.delete(id);
   }
 }

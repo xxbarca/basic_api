@@ -5,7 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from '@/modules/Auth/auth.module';
 import { DatabaseModule } from '@/modules/Database/database.module';
 import { AccessModule } from '@/modules/Access/access.module';
-import { APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import * as dotenv from 'dotenv';
 
 import {
@@ -17,6 +17,7 @@ import { JwtAuthGuard } from '@/modules/Auth/guards';
 import { MallModule } from '@/modules/Mall/mall.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { ErrorFilter } from '@/common/filters/error.filter';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -36,14 +37,18 @@ import { join } from 'path';
   controllers: [AppController],
   providers: [
     AppService,
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: JwtAuthGuard,
+    // },
     {
-      provide: APP_GUARD,
-      useClass: JwtAuthGuard,
+      provide: APP_FILTER,
+      useClass: ErrorFilter,
     },
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: ResponseInterceptor,
-    },
+    // {
+    //   provide: APP_INTERCEPTOR,
+    //   useClass: ResponseInterceptor,
+    // },
     {
       provide: APP_INTERCEPTOR,
       useClass: SerializeInterceptor,

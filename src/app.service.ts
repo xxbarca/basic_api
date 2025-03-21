@@ -15,18 +15,20 @@ export class AppService {
   }
 
   async upload(file: Express.Multer.File) {
-    this.cos.putObject(
-      {
-        Bucket: this.configService.get<string>('COS_BUCKET'),
-        Region: this.configService.get<string>('COS_REGION'),
-        Key: file.originalname,
-        Body: file.buffer,
-        // ContentDisposition: 'inline',
-      },
-      (err, data) => {
-        console.log(data);
-      },
-    );
+    return new Promise((resolve, reject) => {
+      this.cos.putObject(
+        {
+          Bucket: this.configService.get<string>('COS_BUCKET'),
+          Region: this.configService.get<string>('COS_REGION'),
+          Key: file.originalname,
+          Body: file.buffer,
+          // ContentDisposition: 'inline',
+        },
+        (err, data) => {
+          console.log(data);
+        },
+      );
+    });
   }
 
   async getAuth(key: string, expirationTime = 60) {

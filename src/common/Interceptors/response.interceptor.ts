@@ -33,6 +33,12 @@ export class UnifyResponse<T> {
   }
 }
 
+export interface ResponseType<T> {
+  data: T;
+  code: number;
+  message: string;
+}
+
 @Injectable()
 export class ResponseInterceptor<T>
   implements NestInterceptor<T, UnifyResponse<T>>

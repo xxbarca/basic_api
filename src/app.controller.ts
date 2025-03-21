@@ -35,7 +35,7 @@ export class AppController {
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
   async upload(@UploadedFile() file: Express.Multer.File) {
-    return this.appService.upload(file);
+    return await this.appService.upload(file);
   }
 
   @IsPublic()

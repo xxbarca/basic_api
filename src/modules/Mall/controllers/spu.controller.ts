@@ -6,6 +6,7 @@ import {
   Patch,
   Post,
   Param,
+  Delete,
 } from '@nestjs/common';
 import { SpuService } from '@/modules/Mall/services';
 import { CreateSpuDto, UpdateSpuDto } from '@/modules/Mall/dtos';
@@ -30,5 +31,10 @@ export class SpuController {
   @Get(':id')
   async detail(@Param('id', ParseUUIDPipe) id: string) {
     return UnifyResponse.success(await this.service.detail(id));
+  }
+
+  @Delete(':id')
+  async delete(@Param('id', ParseUUIDPipe) id: string) {
+    return UnifyResponse.success(await this.service.delete(id));
   }
 }

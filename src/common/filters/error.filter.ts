@@ -52,12 +52,17 @@ export class ErrorFilter<T extends Error> extends BaseExceptionFilter {
         status = resException.status;
       }
     }
-    const message = isObject(res)
-      ? res
-      : {
-          code: status,
-          message: res,
-        };
+    const message = {
+      code: status,
+      message: isObject(res) ? res['message'] : res,
+      data: null,
+    };
+    // const message = isObject(res)
+    //   ? res
+    //   : {
+    //       code: status,
+    //       message: res,
+    //     };
     applicationRef!.reply(host.getArgByIndex(1), message, status);
   }
 }

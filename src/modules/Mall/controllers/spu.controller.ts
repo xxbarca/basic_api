@@ -9,7 +9,11 @@ import {
   Delete,
 } from '@nestjs/common';
 import { SpuService } from '@/modules/Mall/services';
-import { CreateSpuDto, UpdateSpuDto } from '@/modules/Mall/dtos';
+import {
+  CreateSpuDto,
+  PaginateSpuDto,
+  UpdateSpuDto,
+} from '@/modules/Mall/dtos';
 import { omit } from 'lodash';
 import { UnifyResponse } from '@/common/Interceptors';
 
@@ -36,5 +40,10 @@ export class SpuController {
   @Delete(':id')
   async delete(@Param('id', ParseUUIDPipe) id: string) {
     return UnifyResponse.success(await this.service.delete(id));
+  }
+
+  @Post('paginate')
+  async paginate(@Body() data: PaginateSpuDto) {
+    return UnifyResponse.success(await this.service.page(data));
   }
 }

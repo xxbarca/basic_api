@@ -3,14 +3,19 @@ import { PartialType, PickType } from '@nestjs/swagger';
 import {
   IsEnum,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
   IsUUID,
+  Min,
   ValidateIf,
 } from 'class-validator';
 import { IsDataExist, IsUnique } from '@/modules/Database/constraints';
 import { CategoryEntity, SpuEntity } from '@/modules/Mall/entities';
 import { DtoValidation } from '@/common/decorators';
+import { PaginateOptions } from '@/modules/Database/types';
+import { Transform } from 'class-transformer';
+import { toNumber } from 'lodash';
 
 class CommonSpuDto {
   @IsUnique(SpuEntity, { groups: ['create'], message: '该SPU已存在' })
@@ -82,4 +87,19 @@ export class UpdateSpuDto extends PartialType(CommonSpuDto) {
   @IsUUID()
   @IsNotEmpty({ message: 'id不能为空' })
   id: string;
+}
+
+export class PaginateSpuDto
+  extends PartialType(CommonSpuDto)
+  implements PaginateOptions
+{
+  @Transform(({ value }) => toNumber(value))
+  @Min(1, { message: '当前页必须大于1' })
+  @IsNumber()
+  page?: number = 1;
+
+  @Transform(({ value }) => toNumber(value))
+  @Min(1, { message: '每页显示数据必须大于10' })
+  @IsNumber()
+  limit?: number = 10;
 }

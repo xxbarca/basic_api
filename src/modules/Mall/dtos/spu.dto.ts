@@ -13,7 +13,7 @@ import { CategoryEntity, SpuEntity } from '@/modules/Mall/entities';
 import { DtoValidation } from '@/common/decorators';
 
 class CommonSpuDto {
-  @IsUnique(SpuEntity, { always: true, message: '该SPU已存在' })
+  @IsUnique(SpuEntity, { groups: ['create'], message: '该SPU已存在' })
   @IsString()
   @IsOptional({ groups: ['update'] })
   title: string;

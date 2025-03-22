@@ -1,18 +1,9 @@
-import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
-import { CategoryStatus } from '@/modules/Mall/constants';
+import { Column, Entity } from 'typeorm';
+import { OnlineStatus } from '@/modules/Mall/constants';
+import { BasicEntity } from '@/modules/Database/base';
 
 @Entity('category')
-export class CategoryEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class CategoryEntity extends BasicEntity {
   @Column({
     default: 1,
   })
@@ -21,10 +12,10 @@ export class CategoryEntity {
   @Column({
     comment: '是否上线',
     type: 'enum',
-    enum: CategoryStatus,
-    default: CategoryStatus.ONLINE,
+    enum: OnlineStatus,
+    default: OnlineStatus.ONLINE,
   })
-  online: CategoryStatus;
+  online: OnlineStatus;
 
   @Column({
     comment: '排序',
@@ -56,13 +47,4 @@ export class CategoryEntity {
     nullable: true,
   })
   parent_id: string;
-
-  @DeleteDateColumn()
-  delete_time: Date;
-
-  @UpdateDateColumn()
-  update_time: Date;
-
-  @CreateDateColumn()
-  create_time: Date;
 }

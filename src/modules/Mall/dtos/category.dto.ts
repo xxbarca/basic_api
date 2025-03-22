@@ -13,7 +13,7 @@ import { IsDataExist, IsUnique } from '@/modules/Database/constraints';
 import { CategoryEntity } from '@/modules/Mall/entities';
 import { Transform } from 'class-transformer';
 import { DtoValidation } from '@/common/decorators';
-import { CategoryStatus } from '@/modules/Mall/constants';
+import { OnlineStatus } from '@/modules/Mall/constants';
 import { PaginateOptions } from '@/modules/Database/types';
 import { toNumber } from 'lodash';
 
@@ -47,11 +47,11 @@ class CommonCategoryDto {
   @IsOptional({ always: true })
   index: number;
 
-  @IsEnum(CategoryStatus, {
-    message: `是否在线的取值范围是 [${CategoryStatus.ONLINE}, ${CategoryStatus.OFFLINE}]`,
+  @IsEnum(OnlineStatus, {
+    message: `是否在线的取值范围是 [${OnlineStatus.ONLINE}, ${OnlineStatus.OFFLINE}]`,
   })
   @IsOptional({ always: true })
-  online: CategoryStatus;
+  online: OnlineStatus;
 }
 
 @DtoValidation({ groups: ['create'] })

@@ -1,8 +1,8 @@
-import { Controller, Post } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 
 @Controller('user')
 export class UserController {
-  @Post('info')
+  @Get('info')
   userInfo() {
     return {
       username: '李杨',

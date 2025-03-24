@@ -5,10 +5,10 @@ export class UserController {
   @Get('info')
   userInfo() {
     return {
-      username: '李杨',
-      userId: 'XXX',
-      realName: '李杨',
+      id: 0,
+      realName: 'Vben',
       roles: ['super'],
+      username: 'vben',
     };
   }
 }

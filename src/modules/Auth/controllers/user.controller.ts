@@ -8,6 +8,7 @@ export class UserController {
       username: '李杨',
       userId: 'XXX',
       realName: '李杨',
+      roles: ['super'],
     };
   }
 }

@@ -32,7 +32,7 @@ export class CategoryController {
 
   @Post('paginate')
   async paginate(@Body() data: PaginateCategoryDto) {
-    return await this.service.page(data);
+    return UnifyResponse.success(await this.service.page(data));
   }
 
   @Get(':id')

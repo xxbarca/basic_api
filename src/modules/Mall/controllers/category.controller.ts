@@ -37,7 +37,11 @@ export class CategoryController {
 
   @Get(':id')
   async detail(@Param('id', ParseUUIDPipe) id: string) {
-    return await this.service.detail(id);
+    const category = await this.service.detail(id);
+    if (category.parent_id) {
+      category.parent = await this.service.detail(category.parent_id);
+    }
+    return UnifyResponse.success(category);
   }
 
   @Delete(':id')

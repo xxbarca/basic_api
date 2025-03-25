@@ -47,4 +47,6 @@ export class CategoryEntity extends BasicEntity {
     nullable: true,
   })
   parent_id: string;
+
+  parent: CategoryEntity | null;
 }

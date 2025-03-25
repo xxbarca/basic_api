@@ -45,7 +45,7 @@ export class CategoryController {
     return await this.service.delete(id);
   }
 
-  @Get('list')
+  @Get('/all/list')
   async list() {
     return UnifyResponse.success(await this.service.list());
   }

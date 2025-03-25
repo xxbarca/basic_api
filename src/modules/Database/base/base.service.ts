@@ -74,7 +74,7 @@ export abstract class BaseService<
     callback?: QueryHook<E>,
   ) {
     const wheres = Object.fromEntries(
-      Object.entries(options).map(([key, value]) => [key, value]),
+      Object.entries(options || {}).map(([key, value]) => [key, value]),
     );
     qb = qb.where(wheres);
     return callback ? callback(qb) : qb;

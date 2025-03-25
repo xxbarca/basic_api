@@ -15,6 +15,7 @@ import {
 } from '@/modules/Mall/dtos';
 import { CategoryService } from '@/modules/Mall/services';
 import { omit } from 'lodash';
+import { UnifyResponse } from '@/common/Interceptors';
 
 @Controller('category')
 export class CategoryController {
@@ -42,5 +43,10 @@ export class CategoryController {
   @Delete(':id')
   async delete(@Param('id', ParseUUIDPipe) id: string) {
     return await this.service.delete(id);
+  }
+
+  @Get('list')
+  async list() {
+    return UnifyResponse.success(await this.service.list());
   }
 }

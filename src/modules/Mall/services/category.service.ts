@@ -68,7 +68,7 @@ export class CategoryService extends BaseService<
       return UnifyResponse.success('修改状态成功');
     } catch (e) {
       console.error(e);
-      return UnifyResponse.success('修改状态失败');
+      return UnifyResponse.error('修改状态失败');
     }
   }
 }

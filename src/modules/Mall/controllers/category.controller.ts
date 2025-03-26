@@ -27,7 +27,9 @@ export class CategoryController {
 
   @Patch()
   async update(@Body() data: UpdateCategoryDto) {
-    return await this.service.update(data.id, omit(data, ['id']));
+    return UnifyResponse.success(
+      await this.service.update(data.id, omit(data, ['id'])),
+    );
   }
 
   @Post('paginate')
@@ -52,7 +54,7 @@ export class CategoryController {
 
   @Delete(':id')
   async delete(@Param('id', ParseUUIDPipe) id: string) {
-    return await this.service.delete(id);
+    return UnifyResponse.success(await this.service.delete(id));
   }
 
   @Get('/all/list')

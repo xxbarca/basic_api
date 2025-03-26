@@ -32,7 +32,13 @@ export class CategoryController {
 
   @Post('paginate')
   async paginate(@Body() data: PaginateCategoryDto) {
-    return UnifyResponse.success(await this.service.page(data));
+    const res = await this.service.page(data);
+    for (const item of res.items) {
+      if (item.parent_id) {
+        item.parent = await this.service.detail(item.parent_id);
+      }
+    }
+    return UnifyResponse.success(res);
   }
 
   @Get(':id')

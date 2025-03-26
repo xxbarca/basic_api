@@ -61,4 +61,9 @@ export class CategoryController {
   async list() {
     return UnifyResponse.success(await this.service.list());
   }
+
+  @Patch('switchStatus/:id')
+  async switchStatus(@Param('id', ParseUUIDPipe) id: string) {
+    return await this.service.switchStatus(id);
+  }
 }

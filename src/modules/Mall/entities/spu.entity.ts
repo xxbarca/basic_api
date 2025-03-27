@@ -25,7 +25,7 @@ export class SpuEntity extends BasicEntity {
   category_id: string;
 
   @Column({
-    nullable: false,
+    nullable: true,
   })
   root_category_id: string;
 

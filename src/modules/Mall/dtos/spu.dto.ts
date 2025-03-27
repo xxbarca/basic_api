@@ -33,10 +33,10 @@ class CommonSpuDto {
   @IsString()
   category_id: string;
 
-  @IsDataExist(CategoryEntity, { always: true, message: 'root_category不存在' })
-  @IsUUID(undefined, { always: true, message: 'root_category_id格式不正确' })
-  @IsString()
-  root_category_id: string;
+  // @IsDataExist(CategoryEntity, { always: true, message: 'root_category不存在' })
+  // @IsUUID(undefined, { always: true, message: 'root_category_id格式不正确' })
+  // @IsString()
+  // root_category_id: string;
 
   @IsEnum(OnlineStatus, {
     message: `是否在线的取值范围是 [${OnlineStatus.ONLINE}, ${OnlineStatus.OFFLINE}]`,
@@ -71,7 +71,7 @@ export class CreateSpuDto extends PickType(CommonSpuDto, [
   'title',
   'subtitle',
   'category_id',
-  'root_category_id',
+  // 'root_category_id',
   'online',
   'price',
   'sketch_spec_id',

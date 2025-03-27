@@ -2,6 +2,13 @@ import { BasicEntity } from '@/modules/Database/base';
 import { Column, Entity } from 'typeorm';
 import { OnlineStatus } from '@/modules/Mall/constants';
 
+export interface Spec {
+  key: string;
+  value: string;
+  key_id: number;
+  value_id: number;
+}
+
 @Entity('sku')
 export class SkuEntity extends BasicEntity {
   @Column({
@@ -68,4 +75,10 @@ export class SkuEntity extends BasicEntity {
     type: 'int',
   })
   stock: number;
+
+  @Column({
+    comment: 'spec',
+    type: 'json',
+  })
+  specs: Array<Spec>;
 }

@@ -1,7 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { BaseService } from '@/modules/Database/base';
 import { SpecKeyEntity } from '@/modules/Mall/entities';
-import { SpecKeyRepository } from '@/modules/Mall/repositories';
+import {
+  SpecKeyRepository,
+  SpecValueRepository,
+} from '@/modules/Mall/repositories';
 import { CreateSpecKeyDto } from '@/modules/Mall/dtos';
 import { UnifyResponse } from '@/common/Interceptors';
 
@@ -10,7 +13,10 @@ export class SpecKeyService extends BaseService<
   SpecKeyEntity,
   SpecKeyRepository
 > {
-  constructor(protected repository: SpecKeyRepository) {
+  constructor(
+    protected repository: SpecKeyRepository,
+    protected valRepository: SpecValueRepository,
+  ) {
     super(repository);
   }
 
@@ -20,5 +26,15 @@ export class SpecKeyService extends BaseService<
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
     }
+  }
+
+  async delete(id: string) {
+    const values = await this.valRepository.find({
+      where: {
+        spec_key_id: id,
+      },
+    });
+    await this.valRepository.remove(values);
+    return await super.delete(id);
   }
 }

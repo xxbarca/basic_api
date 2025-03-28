@@ -64,6 +64,10 @@ class CommonSpuDto {
   @IsString()
   @IsOptional({ always: true })
   description: string;
+
+  @IsString()
+  @IsOptional({ always: true })
+  tags: string;
 }
 
 @DtoValidation({ groups: ['create'] })

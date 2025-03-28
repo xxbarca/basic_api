@@ -78,6 +78,12 @@ export class SpuEntity extends BasicEntity {
   })
   description: string;
 
+  @Column({
+    comment: 'TAG',
+    nullable: true,
+  })
+  tags: string;
+
   // tags
   // spu_theme_img
   // for_theme_img

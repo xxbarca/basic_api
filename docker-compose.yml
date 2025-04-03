@@ -27,7 +27,6 @@ services:
       TZ: Asia/Shanghai
     volumes:
       - /root/docker/mysql_home/data:/var/lib/mysql
-      - /root/docker/mysql_home/init:/docker-entrypoint-initdb.d
       - /root/docker/mysql_home/conf:/etc/mysql/conf.d
       - /root/docker/mysql_home/log:/var/log/mysql
     networks:

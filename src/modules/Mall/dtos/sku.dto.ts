@@ -46,11 +46,6 @@ class CommonSkuDto {
   @IsOptional({ always: true })
   img: string;
 
-  @IsString()
-  @IsNotEmpty({ groups: ['create'], message: 'code不能为空' })
-  @IsOptional({ groups: ['update'] })
-  code: string;
-
   @IsDataExist(CategoryEntity, { always: true, message: 'category不存在' })
   @IsUUID(undefined, { groups: ['create'], message: 'category_id格式不正确' })
   @IsString()
@@ -75,7 +70,6 @@ export class CreateSkuDto extends PickType(CommonSkuDto, [
   'discount_price',
   'online',
   'img',
-  'code',
   'stock',
   'specs',
   'category_id',

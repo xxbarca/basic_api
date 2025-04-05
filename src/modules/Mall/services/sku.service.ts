@@ -13,7 +13,14 @@ export class SkuService extends BaseService<SkuEntity, SkuRepository> {
 
   async create(data: CreateSkuDto) {
     try {
-      return UnifyResponse.success(await this.repository.save(data));
+      const spu_id = data.spu_id;
+      let code = data.specs
+        .map((item) => `${item.key_id}-${item.value_id}`)
+        .join('@');
+      code = `${spu_id}$${code}`;
+      return UnifyResponse.success(
+        await this.repository.save({ ...data, code }),
+      );
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
     }

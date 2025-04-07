@@ -4,6 +4,7 @@ import { SignInUserDto } from '@/modules/Auth/dtos';
 import { UserEntity } from '@/modules/Auth/entities';
 import { IsPublic, ReqUser } from '@/modules/Auth/decorators';
 import { LocalAuthGuard } from '@/modules/Auth/guards';
+import { UnifyResponse } from '@/common/Interceptors';
 
 @Controller('auth')
 export class AuthController {
@@ -17,8 +18,8 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @IsPublic()
   @Post('/signIn')
-  signIn(@ReqUser() user: ClassToPlain<UserEntity>) {
-    return this.authService.signIn(user);
+  async signIn(@ReqUser() user: ClassToPlain<UserEntity>) {
+    return UnifyResponse.success(await this.authService.signIn(user));
   }
 
   @IsPublic()

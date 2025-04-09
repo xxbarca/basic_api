@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { MenuService } from '@/modules/Access/services';
 import { CreateMenuDto } from '@/modules/Access/dtos';
+import { UnifyResponse } from '@/common/Interceptors';
 
 @Controller('menu')
 export class MenuController {
@@ -14,5 +15,10 @@ export class MenuController {
   @Delete(':id')
   async delete(@Param('id') id: string) {
     return await this.menuService.delete(id);
+  }
+
+  @Get('list')
+  async list() {
+    return UnifyResponse.success(await this.menuService.list());
   }
 }

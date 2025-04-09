@@ -59,4 +59,28 @@ export class MenuService extends BaseService<MenuEntity, MenuRepository> {
       );
     }
   }
+
+  async list() {
+    return [
+      {
+        path: '/product',
+        meta: {
+          icon: 'ProfileOutlined',
+          isAffix: false,
+          isFull: false,
+          isHide: false,
+          isLink: '',
+          key: 'category',
+          title: '分类管理',
+        },
+        redirect: '/product/category',
+        children: [
+          {
+            path: '/product/category',
+            element: '/product/category/index',
+          },
+        ],
+      },
+    ];
+  }
 }

@@ -64,28 +64,13 @@ export class MenuService extends BaseService<MenuEntity, MenuRepository> {
     return [
       {
         icon: 'ShoppingOutlined',
-        title: '常用组件',
-        path: '/assembly',
+        title: '商品管理',
+        path: '/product',
         children: [
           {
-            icon: 'AppstoreOutlined',
-            path: '/assembly/guide',
-            title: '引导页',
-          },
-          {
-            icon: 'AppstoreOutlined',
-            path: '/assembly/svgIcon',
-            title: 'Svg 图标',
-          },
-          {
-            icon: 'AppstoreOutlined',
-            path: '/assembly/selectIcon',
-            title: 'Icon 选择',
-          },
-          {
-            icon: 'AppstoreOutlined',
-            path: '/assembly/batchImport',
-            title: '批量导入数据',
+            icon: 'ShoppingOutlined',
+            title: '分类管理',
+            path: '/product/category',
           },
         ],
       },

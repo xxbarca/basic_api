@@ -19,6 +19,6 @@ export class MenuController {
 
   @Get('list')
   async list() {
-    return UnifyResponse.success(await this.menuService.list());
+    return UnifyResponse.success(await this.menuService.menuList());
   }
 }

@@ -60,7 +60,7 @@ export class MenuService extends BaseService<MenuEntity, MenuRepository> {
     }
   }
 
-  async list() {
+  async menuList() {
     return [
       {
         path: '/product',

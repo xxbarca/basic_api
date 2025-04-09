@@ -716,6 +716,34 @@ export class MenuService extends BaseService<MenuEntity, MenuRepository> {
           },
         ],
       },
+      // {
+      //   path: '/product',
+      //   meta: {
+      //     icon: 'ProfileOutlined',
+      //     isAffix: false,
+      //     isFull: false,
+      //     isHide: false,
+      //     isLink: '',
+      //     key: 'category',
+      //     title: '商品管理',
+      //   },
+      //   redirect: '/product/category',
+      //   children: [
+      //     {
+      //       path: '/product/category',
+      //       element: '/product/category/index',
+      //       meta: {
+      //         key: 'categoryManage',
+      //         icon: 'AppstoreOutlined',
+      //         title: '分类管理',
+      //         isLink: '',
+      //         isHide: false,
+      //         isFull: false,
+      //         isAffix: false,
+      //       },
+      //     },
+      //   ],
+      // },
       {
         path: '/system',
         redirect: '/system/accountManage',
@@ -862,25 +890,6 @@ export class MenuService extends BaseService<MenuEntity, MenuRepository> {
           isFull: true,
           isAffix: false,
         },
-      },
-      {
-        path: '/product',
-        meta: {
-          icon: 'ProfileOutlined',
-          isAffix: false,
-          isFull: false,
-          isHide: false,
-          isLink: '',
-          key: 'category',
-          title: '分类管理',
-        },
-        redirect: '/product/category',
-        children: [
-          {
-            path: '/product/category',
-            element: '/product/category/index',
-          },
-        ],
       },
     ];
   }

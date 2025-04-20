@@ -12,7 +12,7 @@ export class AuthController {
   @Post('/signup')
   signup(@Body() dto: SignInUserDto) {
     const { username, password } = dto;
-    return this.authService.signup(username, password);
+    return UnifyResponse.success(this.authService.signup(username, password));
   }
 
   @UseGuards(LocalAuthGuard)

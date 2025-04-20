@@ -21,8 +21,8 @@ services:
       - 3306:3306
     privileged: true
     environment:
-      MYSQL_ROOT_PASSWORD: admin123
-      MYSQL_PASSWORD: admin123
+      MYSQL_ROOT_PASSWORD: bGl5YW5n
+      MYSQL_PASSWORD: bGl5YW5n
       MYSQL_USER: root
       TZ: Asia/Shanghai
     volumes:

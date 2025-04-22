@@ -61,6 +61,7 @@ export class CreateCategoryDto extends PickType(CommonCategoryDto, [
   'parent_id',
   'img',
   'index',
+  'online',
 ]) {}
 
 @DtoValidation({ groups: ['update'] })

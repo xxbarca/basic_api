@@ -14,7 +14,6 @@ import {
   PaginateCategoryDto,
 } from '@/modules/Mall/dtos';
 import { CategoryService } from '@/modules/Mall/services';
-import { omit } from 'lodash';
 import { UnifyResponse } from '@/common/Interceptors';
 
 @Controller('category')
@@ -27,9 +26,7 @@ export class CategoryController {
 
   @Patch()
   async update(@Body() data: UpdateCategoryDto) {
-    return UnifyResponse.success(
-      await this.service.update(data.id, omit(data, ['id'])),
-    );
+    return await this.service.updateData(data);
   }
 
   @Post('paginate')

@@ -24,12 +24,13 @@ services:
       MYSQL_ROOT_PASSWORD: bGl5YW5n
       TZ: Asia/Shanghai
     volumes:
-      - /root/docker/mysql_home/data:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
 #      - /root/docker/mysql_home/conf:/etc/mysql/conf.d
 #      - /root/docker/mysql_home/log:/var/log/mysql
     networks:
       - common-network
-
+volumes:
+  mysql-data:
 networks:
   common-network:
     driver: bridge

@@ -16,14 +16,12 @@ services:
   mysql-container:
     restart: always
     image: mysql:8.0.3
-    container_name: basic-mysql
+    container_name: mysql
     ports:
       - 3306:3306
     privileged: true
     environment:
       MYSQL_ROOT_PASSWORD: bGl5YW5n
-      MYSQL_PASSWORD: bGl5YW5n
-      MYSQL_USER: root
       TZ: Asia/Shanghai
     volumes:
       - /root/docker/mysql_home/data:/var/lib/mysql
